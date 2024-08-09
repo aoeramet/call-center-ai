@@ -419,6 +419,7 @@ resource cognitiveCommunication 'Microsoft.CognitiveServices/accounts@2024-04-01
   kind: 'CognitiveServices'
   properties: {
     customSubDomainName: '${prefix}-${cognitiveCommunicationLocation}-communication'
+    publicNetworkAccess: 'Enabled'
   }
 }
 
@@ -432,6 +433,7 @@ resource cognitiveDocument 'Microsoft.CognitiveServices/accounts@2024-04-01-prev
   kind: 'FormRecognizer'
   properties: {
     customSubDomainName: '${prefix}-${location}-document'
+    publicNetworkAccess: 'Enabled'
   }
 }
 
@@ -460,9 +462,10 @@ resource cognitiveOpenai 'Microsoft.CognitiveServices/accounts@2024-04-01-previe
   kind: 'OpenAI'
   properties: {
     customSubDomainName: '${prefix}-${openaiLocation}-openai'
+    publicNetworkAccess: 'Enabled'
   }
 }
-
+/*
 resource contentfilter 'Microsoft.CognitiveServices/accounts/raiPolicies@2024-04-01-preview' = {
   parent: cognitiveOpenai
   name: 'disabled'
@@ -550,7 +553,7 @@ resource contentfilter 'Microsoft.CognitiveServices/accounts/raiPolicies@2024-04
     ]
   }
 }
-
+*/
 resource llmSlow 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
   parent: cognitiveOpenai
   name: llmSlowModelFullName
@@ -560,7 +563,7 @@ resource llmSlow 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-pr
     name: llmSlowDeploymentType
   }
   properties: {
-    raiPolicyName: contentfilter.name
+    // raiPolicyName: contentfilter.name
     versionUpgradeOption: 'NoAutoUpgrade'
     model: {
       format: 'OpenAI'
@@ -579,7 +582,7 @@ resource llmFast 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-pr
     name: llmFastDeploymentType
   }
   properties: {
-    raiPolicyName: contentfilter.name
+    // raiPolicyName: contentfilter.name
     versionUpgradeOption: 'NoAutoUpgrade'
     model: {
       format: 'OpenAI'
@@ -601,7 +604,7 @@ resource embedding 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-
     name: embeddingDeploymentType
   }
   properties: {
-    raiPolicyName: contentfilter.name
+    // raiPolicyName: contentfilter.name
     versionUpgradeOption: 'NoAutoUpgrade'
     model: {
       format: 'OpenAI'
